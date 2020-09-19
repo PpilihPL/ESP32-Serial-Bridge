@@ -19,47 +19,19 @@ def check(str_to_compare, str_to_compare_to):
       print("anmeldung fehlgeschlagen")
       return False
 
-def login(website):
+def get_login_data():
 
-    wahl = input('An Hochschule/Universät anmelden? (Hs/Uni)')
-    benutzername = input('Benutername: ')
-    passwort = input('Passwort: ')
-
-    anmeldedaten = {
-        wahl,
-        benutzername,
-        passwort
-        }
-
-    with requests.Session() as session:
-        if wahl == 'Hs':
-            print('Anmeldung an Hochschule wird durchgeführt...')
-            login = session.post(url_login, anmeldedaten)
-            login.text
-            after_login = BeautifulSoup(login.text, 'html.parser')
-            titel = after_login.title.text1
-        if wahl == 'Uni':
-            print('Anmeldung an Universität wird durchgeführt...')
-            login = session.post(url_login, anmeldedaten)
-            login.text
-            after_login = BeautifulSoup(login.text, 'html.parser')
-            titel = after_login.title.text1
-
-    #anmeldng im Elearning und erstellen des Objektes login
-    
-
-    anmeldung_erfolgreich = "GRIPS - Uni Regensburg"
-    check(titel, anmeldung_erfolgreich)
-    return True
+    anmeldedaten.benutzername = input('Benutername: ')
+    anmeldedaten.passwort = input('Passwort: ')
 
 
 with requests.Session() as session:
-    ##anmeldng im Elearning und erstellen des Objektes login
-    #print('Anmeldung wird durchgeführt...')
-    #login = session.post(url_login, anmeldedaten_korrekt)
-    #login.text
-    #after_login = BeautifulSoup(login.text, 'html.parser')
-    #titel = after_login.title.text
+    #anmeldng im Elearning und erstellen des Objektes login
+    print('Anmeldung wird durchgeführt...')
+    login = session.post(url_login, anmeldedaten_korrekt)
+    login.text
+    after_login = BeautifulSoup(login.text, 'html.parser')
+    titel = after_login.title.text
 
     #anmeldung_erfolgreich = "GRIPS - Uni Regensburg"
 
@@ -67,7 +39,6 @@ with requests.Session() as session:
 
     #laden der Startseite in Ojekt
 
-    login(url_login)
     seite = session.get(url_meine_Kurse)
     seite.text
     soup = BeautifulSoup(seite.text, 'html.parser')
